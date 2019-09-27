@@ -1,0 +1,134 @@
+<ion-content padding>
+  <h1 text-center>
+    <ion-icon
+      name="done-all"
+      color="primary"
+      class="icon-7em"
+    ></ion-icon>
+  </h1>
+
+  <form
+    [formGroup]="authForm"
+    (submit)="onSubmit(authProviders.Email)"
+  >
+
+    <ng-container *ngIf="!configs.isSignIn">
+
+      <ion-item>
+        <ion-icon
+          name="person"
+          color="primary"
+          slot="start"
+        ></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="Nome"
+          formControlName="nome"
+        >
+        </ion-input>
+        <ion-note
+          slot="end"
+          color="danger"
+          *ngIf="nome.dirty && nome.hasError('required')"
+        >
+          Obrigatório
+        </ion-note>
+        <ion-note
+          slot="end"
+          color="danger"
+          *ngIf="nome.dirty && nome.hasError('minlength')"
+        >
+          3 caracteres obrigatórios
+        </ion-note>
+      </ion-item>
+
+    </ng-container>
+
+    <ion-item>
+      <ion-icon
+        name="mail"
+        color="primary"
+        slot="start"
+      ></ion-icon>
+      <ion-input
+        type="email"
+        placeholder="E-mail"
+        formControlName="email"
+        input-mode="email"
+        autofocus="true"
+      >
+      </ion-input>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="email.dirty && email.hasError('required')"
+      >
+        Obrigatório
+      </ion-note>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="email.dirty && email.hasError('email')"
+      >
+        E-mail inválido
+      </ion-note>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-icon
+        name="lock"
+        color="primary"
+        slot="start"
+      ></ion-icon>
+      <ion-input
+        type="password"
+        placeholder="Senha"
+        formControlName="senha"
+      >
+      </ion-input>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="senha.dirty && senha.hasError('required')"
+      >
+        Obrigatório
+      </ion-note>
+      <ion-note
+        slot="end"
+        color="danger"
+        *ngIf="senha.dirty && senha.hasError('minlength')"
+      >
+        6 caracteres obrigatórios
+      </ion-note>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="authForm.invalid"
+    >
+      {{ configs.action }}
+    </ion-button>
+
+  </form>
+
+  <ion-button
+    expand="block"
+    fill="clear"
+    (click)="changAuthAction()"
+  >
+    {{ configs.actionChange }}
+  </ion-button>
+  <ion-button
+    expand="block"
+    (click)="onSubmit(authProviders.Facebook)"
+  >
+    <ion-icon
+      name="logo-facebook"
+      slot="start"
+    ></ion-icon>
+    Login com Facebook
+  </ion-button>
+
+</ion-content>
